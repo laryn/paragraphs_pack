@@ -35,20 +35,32 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Paragraph Content bundle should be created.
+   * Test Paragraph Content bundle existence.
    */
-  public function testParagraphsPackListBundle() {
+  public function testParagraphsPackNodeListBundle() {
+    // Test bundle existence.
     $content_bundle_loaded = (paragraphs_bundle_load(PP_BUNDLE_NODE_LIST) != FALSE);
-
     $this->assertTrue($content_bundle_loaded, t('Paragraph "@paragraph_bundle" bundle was successfully created.', array(
       '@paragraph_bundle' => PP_BUNDLE_NODE_LIST,
     )));
+
+    // TODO:
+    // Assing paragraph_item to Basic page bundle.
+    // Create Basic page node: $this->drupalCreateNode($settings)
+    // Load the page for adding new Basic page: $this->drupalGet($path)
+    // Select paragraph bundle (probably not necessary, just one paragraph bundle will be available)
+    // Click Add Paragraph button: $this->drupalPostAJAX($path, $edit, $triggering_element)
+    // Get viem mode field options: $this->getAllOptions($element)
+    // Check the options.
+    // Maybe:
+    // Create some nodes, Basic page bundles.
+    // Create PP_BUNDLE_NODE_LIST instance.
   }
 
   /**
    * Test items field and instance existance.
    */
-  public function testParagraphsPackListFieldItemsExistence() {
+  public function testParagraphsPackNodeListFieldItemsExistence() {
     $field = field_info_field(PP_FIELD_ITEMS);
     $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
       '@paragraph_field' => PP_FIELD_ITEMS,
@@ -64,7 +76,7 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
   /**
    * Test view mode field and instance existance.
    */
-  public function testParagraphsPackListFieldViewModeExistence() {
+  public function testParagraphsPackNodeListFieldViewModeExistence() {
     $field = field_info_field(PP_FIELD_VIEW_MODE);
     $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
       '@paragraph_field' => PP_FIELD_VIEW_MODE,
