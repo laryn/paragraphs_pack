@@ -5,5 +5,5 @@
  */
 function paragraphs_pack_content_install() {
   paragraphs_pack_create_paragraph(PP_BUNDLE_CONTENT, 'Content');
-  paragraphs_pack_add_body_field(PP_BUNDLE_CONTENT, 'Content');
+  paragraphs_pack_add_field_body(PP_BUNDLE_CONTENT, 'Content');
 }

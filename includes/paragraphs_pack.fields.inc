@@ -2,7 +2,7 @@
 
 /**
  * @file
- * adds a pp_view_mode field
+ * Implements custom fields: PP_FIELD_TYPE_VIEW_MODE.
  *
  */
 

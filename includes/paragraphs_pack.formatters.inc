@@ -2,7 +2,7 @@
 
 /**
  * @file
- * adds a formatter for pp_items field.
+ * Implements custom formatters: PP_FORMATTER_VIEW_MODE
  *
  */
 // Variables:
