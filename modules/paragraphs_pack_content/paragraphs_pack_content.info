@@ -1,0 +1,9 @@
+name = Paragraphs pack Content.
+description = Installs paragraphs bundle Content.
+core = 7.x
+package = Paragraphs
+version = 7.x-1.x
+
+dependencies[] = paragraphs_pack
+
+files[] = paragraphs_pack_content.test

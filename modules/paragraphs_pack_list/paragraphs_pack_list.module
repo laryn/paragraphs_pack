@@ -1,0 +1,123 @@
+<?php
+
+// Bundles:
+define('PP_BUNDLE_LIST', 'paragraphs_pack_list');
+
+/**
+ * Adds items field to a paragraph bundle.
+ *
+ * @param string $bundle
+ *   A paragraph type machine_name.
+ * @param $field_label
+ *   A label of the field.
+ *
+ */
+function paragraphs_pack_list_add_items_field($bundle, $field_label) {
+  $field = paragraphs_pack_list_get_items_field();
+
+  $instance = field_info_instance(PP_PARAGRAPH_TYPE, $field['field_name'], $bundle);
+  if (empty($instance)) {
+    $instance = array(
+      'field_name' => $field['field_name'],
+      'entity_type' => PP_PARAGRAPH_TYPE,
+      'bundle' => $bundle,
+      'label' => $field_label,
+      'widget' => array(
+        'type' => 'entityreference_autocomplete', // 'options_select',
+      ),
+      'display' => array(
+        'default' => array(
+          'label' => 'hidden',
+          'type' => PP_FORMATTER_VIEW_MODE,
+        ),
+        'paragraphs_editor_preview' => array(
+          'label' => 'hidden',
+          'type' => PP_FORMATTER_VIEW_MODE,
+        ),
+      ),
+      'settings' => array(
+        'target_type' => 'node',
+      ),
+    );
+    field_create_instance($instance);
+  }
+
+  return $instance;
+}
+
+/**
+ * Get/Create items field.
+ *
+ * This field can be used only on paragraph entity type.
+ *
+ * @return array
+ *  An array containing field values.
+ */
+function paragraphs_pack_list_get_items_field() {
+  $field = field_info_field(PP_FIELD_ITEMS);
+  if (empty($field)) {
+    $field = array(
+      'field_name' => PP_FIELD_ITEMS,
+      'type' => 'entityreference',
+      'entity_types' => array(PP_PARAGRAPH_TYPE),
+      'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+      'settings' => array(
+        'target_type' => 'node',
+      ),
+    );
+    $field = field_create_field($field);
+  }
+
+  return $field;
+}
+
+/**
+ * Adds view mode field to a paragraph bundle.
+ *
+ * @param string $bundle
+ *   A paragraph type machine_name.
+ * @param $field_label
+ *   A label of the field.
+ *
+ */
+function paragraphs_pack_list_add_view_mode_field($bundle, $field_label) {
+  $field = paragraphs_pack_list_get_view_mode_field();
+
+  $instance = field_info_instance(PP_PARAGRAPH_TYPE, $field['field_name'], $bundle);
+  if (empty($instance)) {
+    $instance = array(
+      'field_name' => $field['field_name'],
+      'entity_type' => PP_PARAGRAPH_TYPE,
+      'bundle' => $bundle,
+      'label' => $field_label,
+      'required' => TRUE,
+      'display' => array(),
+    );
+    field_create_instance($instance);
+  }
+
+  return $instance;
+}
+
+/**
+ * Get/Create view mode field.
+ *
+ * This field can be used only on paragraph entity type.
+ *
+ * @return array
+ *  An array containing field values.
+ */
+function paragraphs_pack_list_get_view_mode_field() {
+  $field = field_info_field(PP_FIELD_VIEW_MODE);
+  if (empty($field)) {
+    $field = array(
+      'field_name' => PP_FIELD_VIEW_MODE,
+      'type' => PP_FIELD_TYPE_VIEW_MODE,
+      'entity_types' => array(PP_PARAGRAPH_TYPE),
+      'cardinality' => 1,
+    );
+    $field = field_create_field($field);
+  }
+
+  return $field;
+}

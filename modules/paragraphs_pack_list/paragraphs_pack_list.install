@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function paragraphs_pack_list_install() {
+  paragraphs_pack_create_paragraph(PP_BUNDLE_LIST, 'List');
+  paragraphs_pack_list_add_view_mode_field(PP_BUNDLE_LIST, 'View mode');
+  paragraphs_pack_list_add_items_field(PP_BUNDLE_LIST, 'Items');
+}

@@ -1,0 +1,9 @@
+name = Paragraphs pack List.
+description = Installs paragraphs bundle List.
+core = 7.x
+package = Paragraphs
+version = 7.x-1.x
+
+dependencies[] = paragraphs_pack
+
+files[] = paragraphs_pack_list.test

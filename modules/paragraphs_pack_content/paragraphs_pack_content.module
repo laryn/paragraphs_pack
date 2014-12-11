@@ -1,0 +1,4 @@
+<?php
+
+// Bundles:
+define('PP_BUNDLE_CONTENT', 'paragraphs_pack_content');

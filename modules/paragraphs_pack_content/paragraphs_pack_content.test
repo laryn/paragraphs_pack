@@ -1,0 +1,56 @@
+<?php
+
+class ParagraphsPackContentTestCase extends DrupalWebTestCase {
+
+  /**
+   * Give display information to the SimpleTest system.
+   *
+   * getInfo() returns a keyed array of information for SimpleTest to show.
+   *
+   * It's a good idea to organize your tests consistently using the 'group'
+   * key.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Paragraph Content bundle',
+      'description' => 'Ensure that the Paragraphs pack Content create the Paragraph bundle and its fields.',
+      'group' => 'Paragraphs pack',
+    );
+  }
+
+  /**
+   * Set up the test environment.
+   */
+  public function setUp() {
+    // We call parent::setUp() with the list of modules we want to enable.
+    parent::setUp('paragraphs_pack_content');
+  }
+
+  /**
+   * Paragraph Content bundle should be created.
+   */
+  public function testParagraphsPackContentBundle() {
+    $content_bundle_loaded = (paragraphs_bundle_load(PP_BUNDLE_CONTENT) != FALSE);
+
+    $this->assertTrue($content_bundle_loaded, t('Paragraph "@paragraph_bundle" bundle was successfully created.', array(
+      '@paragraph_bundle' => PP_BUNDLE_CONTENT,
+    )));
+  }
+
+  /**
+   * Field pp_body should exists and paragraph Content bundle contains its instance.
+   */
+  public function testParagraphsPackContentFields() {
+    $field = field_info_field(PP_FIELD_BODY);
+    $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
+      '@paragraph_field' => PP_FIELD_BODY,
+    )));
+
+    $instance = field_info_instance(PP_PARAGRAPH_TYPE, PP_FIELD_BODY, PP_BUNDLE_CONTENT);
+    $this->assertTrue(!empty($instance), t('Paragraph "@paragraph_bundle" bundle contains "@paragraph_field" field instance.', array(
+      '@paragraph_bundle' => PP_BUNDLE_CONTENT,
+      '@paragraph_field' => PP_FIELD_BODY,
+    )));
+  }
+
+}
