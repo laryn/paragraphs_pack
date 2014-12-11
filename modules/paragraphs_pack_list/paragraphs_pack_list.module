@@ -1,4 +1,0 @@
-<?php
-
-// Bundles:
-define('PP_BUNDLE_LIST', 'paragraphs_pack_list');
