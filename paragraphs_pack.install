@@ -6,6 +6,13 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function paragraphs_pack_install() {
+  field_info_cache_clear();
+}
+
+/**
  * Implements hook_field_schema().
  */
 function paragraphs_pack_field_schema($field) {
