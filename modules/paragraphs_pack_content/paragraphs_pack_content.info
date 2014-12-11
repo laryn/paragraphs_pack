@@ -6,4 +6,4 @@ version = 7.x-1.x
 
 dependencies[] = paragraphs_pack
 
-files[] = paragraphs_pack_content.test
+files[] = tests/paragraphs_pack_content.test

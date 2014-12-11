@@ -6,3 +6,5 @@ version = 7.x-1.x
 
 dependencies[] = paragraphs
 dependencies[] = entityreference
+
+files[] = tests/paragraphs_pack.test

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @file
+ * Paragraphs pack content module's tests.
+ */
+
+/**
+ * Test case for Paragraphs pack content.
+ */
 class ParagraphsPackContentTestCase extends DrupalWebTestCase {
 
   /**
@@ -12,8 +20,8 @@ class ParagraphsPackContentTestCase extends DrupalWebTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Paragraph Content bundle',
-      'description' => 'Ensure that the Paragraphs pack Content create the Paragraph bundle and its fields.',
+      'name' => 'Paragraphs pack content tests',
+      'description' => 'Tests:  Paragraphs pack content installation.',
       'group' => 'Paragraphs pack',
     );
   }
@@ -38,9 +46,9 @@ class ParagraphsPackContentTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Field pp_body should exists and paragraph Content bundle contains its instance.
+   * Test content/body field and instance existance.
    */
-  public function testParagraphsPackContentFields() {
+  public function testParagraphsPackContentFieldBodyExistence() {
     $field = field_info_field(PP_FIELD_BODY);
     $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
       '@paragraph_field' => PP_FIELD_BODY,

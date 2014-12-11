@@ -78,7 +78,10 @@ function paragraphs_pack_add_field_items($bundle, $field_label, $target_type = '
     'bundle' => $bundle,
     'label' => $field_label,
     'widget' => array(
-      'type' => 'entityreference_autocomplete', // 'options_select',
+      'type' => 'entityreference_autocomplete',
+    ),
+    'settings' => array(
+      'target_type' => $target_type,
     ),
     'display' => array(
       'default' => array(
@@ -89,9 +92,6 @@ function paragraphs_pack_add_field_items($bundle, $field_label, $target_type = '
         'label' => 'hidden',
         'type' => PP_FORMATTER_VIEW_MODE,
       ),
-    ),
-    'settings' => array(
-      'target_type' => 'node',
     ),
   ));
 

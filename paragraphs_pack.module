@@ -3,7 +3,6 @@
 /**
  * @file
  * Paragraphs pack primary module file.
- *
  */
 // Field types:
 define('PP_FIELD_TYPE_VIEW_MODE', 'pp_view_mode');
@@ -22,7 +21,6 @@ define('PP_PARAGRAPH_TYPE', 'paragraphs_item');
 // Values:
 define('PP_VIEW_MODE_NONE', 'none');
 define('PP_VALUE_DEFAULT', 'default');
-
 
 // Includes fields.
 require_once dirname(__FILE__) . '/includes/paragraphs_pack.fields.inc';
