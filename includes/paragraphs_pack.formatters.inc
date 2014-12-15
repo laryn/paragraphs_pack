@@ -5,6 +5,7 @@
  * Implements custom formatters: PP_FORMATTER_VIEW_MODE
  *
  */
+
 // Variables:
 define('PP_VIEW_MODE_SELECTION_FIELD', 'view_mode_selection_field');
 
