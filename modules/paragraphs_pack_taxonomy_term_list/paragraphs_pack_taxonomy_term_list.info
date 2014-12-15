@@ -1,0 +1,5 @@
+name = Paragraphs pack Taxonomy term list.
+description = Installs paragraphs bundle Taxonomy term list.
+core = 7.x
+package = Paragraphs
+dependencies[] = paragraphs_pack

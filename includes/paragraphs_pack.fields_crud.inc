@@ -70,7 +70,7 @@ function paragraphs_pack_get_field_body() {
  *   An items field instance.
  */
 function paragraphs_pack_add_field_items($bundle, $field_label, $target_type = 'node') {
-  $field = paragraphs_pack_get_field_items($target_type);
+  $field = paragraphs_pack_get_field_items();
 
   $instance = _paragraphs_pack_add_field(array(
     'field_name' => $field['field_name'],
@@ -108,15 +108,12 @@ function paragraphs_pack_add_field_items($bundle, $field_label, $target_type = '
  * @return array
  *   An array containing field values.
  */
-function paragraphs_pack_get_field_items($target_type = 'node') {
+function paragraphs_pack_get_field_items() {
   $field = _paragraphs_pack_get_field(array(
     'field_name' => PP_FIELD_ITEMS,
     'type' => 'entityreference',
     'entity_types' => array(PP_PARAGRAPH_TYPE),
     'cardinality' => FIELD_CARDINALITY_UNLIMITED,
-    'settings' => array(
-      'target_type' => $target_type,
-    ),
   ));
 
   return $field;
@@ -129,11 +126,13 @@ function paragraphs_pack_get_field_items($target_type = 'node') {
  *   A paragraph type machine_name.
  * @param $field_label
  *   A label of the field.
+ * @param $entity_type
+ *   An entity type which view modes are displayed.
  * @return array
  *   An view mode field instance.
  */
-function paragraphs_pack_add_field_view_mode($bundle, $field_label) {
-  $field = paragraphs_pack_get_field_view_mode();
+function paragraphs_pack_add_field_view_mode($bundle, $field_label, $entity_type = 'node') {
+  $field = paragraphs_pack_get_field_view_mode($entity_type);
 
   $instance = _paragraphs_pack_add_field(array(
     'field_name' => $field['field_name'],
@@ -152,14 +151,19 @@ function paragraphs_pack_add_field_view_mode($bundle, $field_label) {
  *
  * This field can be used only on paragraph entity type.
  *
+ * @param $entity_type
+ *   An entity type which view modes are displayed.
  * @return array
  *  An array containing field values.
  */
-function paragraphs_pack_get_field_view_mode() {
+function paragraphs_pack_get_field_view_mode($entity_type = 'node') {
   $field = _paragraphs_pack_get_field(array(
     'field_name' => PP_FIELD_VIEW_MODE,
     'type' => PP_FIELD_TYPE_VIEW_MODE,
     'entity_types' => array(PP_PARAGRAPH_TYPE),
+    'settings' => array(
+      'entity_type' => $entity_type,
+    ),
     'cardinality' => 1,
   ));
 

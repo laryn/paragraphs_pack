@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function paragraphs_pack_taxonomy_term_list_install() {
+  paragraphs_pack_create_paragraph(PP_BUNDLE_TAXONOMY_TERM_LIST, 'Taxonomy term list');
+  paragraphs_pack_add_field_view_mode(PP_BUNDLE_TAXONOMY_TERM_LIST, 'View mode', 'taxonomy_term');
+  paragraphs_pack_add_field_items(PP_BUNDLE_TAXONOMY_TERM_LIST, 'Items', 'taxonomy_term');
+}

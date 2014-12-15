@@ -14,7 +14,7 @@ function paragraphs_pack_field_info() {
     PP_FIELD_TYPE_VIEW_MODE => array(
       'label' => t('View mode Selection'),
       'description' => t('This field stores a view mode that\'s going to be applied on Paragraphs pack items field'),
-      'settings' => array(
+      'instance_settings' => array(
         // Default to the core entity type node.
         'entity_type' => 'node',
       ),

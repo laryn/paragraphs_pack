@@ -1,0 +1,4 @@
+<?php
+
+// Bundles:
+define('PP_BUNDLE_TAXONOMY_TERM_LIST', 'paragraphs_pack_taxonomy_list');
