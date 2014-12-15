@@ -61,6 +61,6 @@ function paragraphs_pack_create_paragraph($machine_name, $name) {
   }
   else {
     drupal_set_message($t('The paragraph bundle %name couldn\'t been saved.', $t_args), 'warning');
-    watchdog('paragraphs_pack', 'The paragraph bundle %name couldn\'t been saved.', $t_args, WATCHDOG_WARNING, l(t('view')));
+    watchdog('paragraphs_pack', 'The paragraph bundle %name couldn\'t been saved.', $t_args, WATCHDOG_WARNING, l(t('view'), 'admin/structure/paragraphs'));
   }
 }
