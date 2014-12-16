@@ -61,15 +61,17 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
    * Test items field and instance existance.
    */
   public function testParagraphsPackNodeListFieldItemsExistence() {
-    $field = field_info_field(PP_FIELD_ITEMS);
+    $field_name = PP_FIELD_ITEMS . '_node';
+
+    $field = field_info_field($field_name);
     $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
-      '@paragraph_field' => PP_FIELD_ITEMS,
+      '@paragraph_field' => $field_name,
     )));
 
-    $instance = field_info_instance(PP_PARAGRAPH_TYPE, PP_FIELD_ITEMS, PP_BUNDLE_NODE_LIST);
+    $instance = field_info_instance(PP_PARAGRAPH_TYPE, $field_name, PP_BUNDLE_NODE_LIST);
     $this->assertTrue(!empty($instance), t('Paragraph "@paragraph_bundle" bundle contains "@paragraph_field" field instance.', array(
       '@paragraph_bundle' => PP_BUNDLE_NODE_LIST,
-      '@paragraph_field' => PP_FIELD_ITEMS,
+      '@paragraph_field' => $field_name,
     )));
   }
 

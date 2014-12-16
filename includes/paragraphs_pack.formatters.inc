@@ -110,76 +110,43 @@ function paragraphs_pack_field_formatter_settings_summary($field, $instance, $vi
  * Implements hook_field_formatter_prepare_view().
  */
 function paragraphs_pack_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
-  $target_ids = array();
+  switch ($field['type']) {
+    case 'entityreference':
+      // Call the original entityreference functionality first.
+      entityreference_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, $items, $displays);
 
-  // Collect every possible entity attached to any of the entities.
-  foreach ($entities as $id => $entity) {
-    foreach ($items[$id] as $delta => $item) {
-      if (isset($item['target_id'])) {
-        $target_ids[] = $item['target_id'];
-      }
-    }
-  }
+      // Iterate through the fieldable entities again to attach the loaded data.
+      foreach ($entities as $id => $entity) {
+        $display = $displays[$id];
+        $settings = $display['settings'];
 
-  if ($target_ids) {
-    $target_entities = entity_load($field['settings']['target_type'], $target_ids);
-  }
-  else {
-    $target_entities = array();
-  }
+        foreach ($items[$id] as $delta => $item) {
+          // Get View mode field.
+          $view_mode = 'full';
+          $view_mode_selection_field = $settings[PP_VIEW_MODE_SELECTION_FIELD];
+          if ($view_mode_selection_field != PP_VALUE_DEFAULT) {
+            // Get view mode for rendering.
+            $view_mode = $entity->{$view_mode_selection_field}[$langcode][0]['value'];
+          }
+          // Use the first one field with view mode value.
+          else {
+            list(,, $bundle) = entity_extract_ids($entity_type, $entity);
+            $instances = field_info_instances($entity_type, $bundle);
 
-  // Iterate through the fieldable entities again to attach the loaded data.
-  foreach ($entities as $id => $entity) {
-    $rekey = FALSE;
-    $display = $displays[$id];
-    $settings = $display['settings'];
-
-    foreach ($items[$id] as $delta => $item) {
-      // Check whether the referenced entity could be loaded.
-      if (isset($target_entities[$item['target_id']])) {
-        // Replace the instance value with the term data.
-        $items[$id][$delta]['entity'] = $target_entities[$item['target_id']];
-        // Check whether the user has access to the referenced entity.
-        $has_view_access = (entity_access('view', $field['settings']['target_type'], $target_entities[$item['target_id']]) !== FALSE);
-        $has_update_access = (entity_access('update', $field['settings']['target_type'], $target_entities[$item['target_id']]) !== FALSE);
-        $items[$id][$delta]['access'] = ($has_view_access || $has_update_access);
-
-        // Get View mode field.
-        $view_mode = 'full';
-        $view_mode_selection_field = $settings[PP_VIEW_MODE_SELECTION_FIELD];
-        if ($view_mode_selection_field != PP_VALUE_DEFAULT) {
-          // Get view mode for rendering.
-          $view_mode = $entity->{$view_mode_selection_field}[$langcode][0]['value'];
-        }
-        // Use the first one field with view mode value.
-        else {
-          list(,, $bundle) = entity_extract_ids($entity_type, $entity);
-          $instances = field_info_instances($entity_type, $bundle);
-
-          //$fields = field_read_fields(array('type' => $bundle_name));
-          foreach ($instances as $field_name => $instance) {
-            $field_info = field_info_field($field_name);
-            if ($field_info['type'] == PP_FIELD_TYPE_VIEW_MODE) {
-              $view_mode = $entity->{$field_name}[$langcode][0]['value'];
-              break;
+            //$fields = field_read_fields(array('type' => $bundle_name));
+            foreach ($instances as $field_name => $instance) {
+              $field_info = field_info_field($field_name);
+              if ($field_info['type'] == PP_FIELD_TYPE_VIEW_MODE) {
+                $view_mode = $entity->{$field_name}[$langcode][0]['value'];
+                break;
+              }
             }
           }
+
+          // Set view mode.
+          $items[$id][$delta]['view_mode'] = $view_mode;
         }
-
-        // Set view mode.
-        $items[$id][$delta]['view_mode'] = $view_mode;
       }
-      // Otherwise, unset the instance value, since the entity does not exist.
-      else {
-        unset($items[$id][$delta]);
-        $rekey = TRUE;
-      }
-    }
-
-    if ($rekey) {
-      // Rekey the items array.
-      $items[$id] = array_values($items[$id]);
-    }
   }
 }
 

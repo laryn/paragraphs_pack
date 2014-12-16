@@ -31,7 +31,7 @@ function paragraphs_pack_field_validate($entity_type, $entity, $field, $instance
   foreach ($items as $delta => $item) {
     if (!empty($item['value'])) {
       $view_mode = $item['value'];
-      $possible_view_modes = paragraphs_pack_get_allowed_view_modes($field);
+      $possible_view_modes = paragraphs_pack_get_allowed_view_modes($instance);
 
       // Validate the view mode.
       if ($view_mode != PP_VALUE_DEFAULT && !isset($possible_view_modes[$view_mode])) {
@@ -76,7 +76,7 @@ function paragraphs_pack_field_settings_form($field, $instance, $has_data) {
         '#type' => 'select',
         '#title' => t('Entity type'),
         '#options' => $entity_type_options,
-        '#default_value' => $field['settings']['entity_type'],
+        '#default_value' => $instance['settings']['entity_type'],
         '#required' => TRUE,
         '#description' => t('The entity type whose view modes are displayed.'),
         '#disabled' => $has_data,
@@ -115,7 +115,7 @@ function paragraphs_pack_options_list($field, $instance, $entity_type, $entity) 
 
   switch ($field['type']) {
     case PP_FIELD_TYPE_VIEW_MODE:
-      $options = paragraphs_pack_get_allowed_view_modes($field);
+      $options = paragraphs_pack_get_allowed_view_modes($instance);
       break;
   }
 
@@ -125,18 +125,18 @@ function paragraphs_pack_options_list($field, $instance, $entity_type, $entity) 
 /**
  * Returns the array of allowed view modes for a list field.
  *
- * @param $field
- *   The field definition.
+ * @param $instance
+ *   The instance information.
  *
  * @return
  *   The array of allowed view modes. Keys of the array are view mode ...,
  *   values of the array are the display labels.
  */
-function paragraphs_pack_get_allowed_view_modes($field) {
+function paragraphs_pack_get_allowed_view_modes($instance) {
   $view_modes = &drupal_static(__FUNCTION__, array());
 
-  if (!isset($view_modes[$field['id']])) {
-    $entity_type = $field['settings']['entity_type'];
+  if (!isset($view_modes[$instance['id']])) {
+    $entity_type = $instance['settings']['entity_type'];
 
     $values = array(PP_VALUE_DEFAULT => 'Default');
     $entity_info = entity_get_info($entity_type);
@@ -148,10 +148,10 @@ function paragraphs_pack_get_allowed_view_modes($field) {
       }
     }
 
-    $view_modes[$field['id']] = $values;
+    $view_modes[$instance['id']] = $values;
   }
 
-  return $view_modes[$field['id']];
+  return $view_modes[$instance['id']];
 }
 
 /**
