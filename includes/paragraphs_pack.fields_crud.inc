@@ -29,11 +29,15 @@ function paragraphs_pack_add_field_body($bundle, $field_label) {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
         'type' => 'text_default',
       ),
-      'teaser' => array(
+      'paragraphs_editor_preview' => array(
         'label' => 'hidden',
-        'type' => 'text_summary_or_trimmed',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
       ),
     ),
   ));
@@ -83,10 +87,18 @@ function paragraphs_pack_add_field_items($bundle, $field_label, $target_type = '
     'display' => array(
       'default' => array(
         'label' => 'hidden',
+        'module' => 'paragraphs_pack',
+        'settings' => array(
+          'entity_type' => $target_type,
+        ),
         'type' => PP_FORMATTER_VIEW_MODE,
       ),
       'paragraphs_editor_preview' => array(
         'label' => 'hidden',
+        'module' => 'paragraphs_pack',
+        'settings' => array(
+          'entity_type' => $target_type,
+        ),
         'type' => PP_FORMATTER_VIEW_MODE,
       ),
     ),
@@ -143,7 +155,20 @@ function paragraphs_pack_add_field_view_mode($bundle, $field_label, $entity_type
       'entity_type' => $entity_type,
     ),
     'required' => TRUE,
-    'display' => array(),
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => -10,
+      ),
+      'paragraphs_editor_preview' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => -10,
+      ),
+    ),
   ));
 
   return $instance;
