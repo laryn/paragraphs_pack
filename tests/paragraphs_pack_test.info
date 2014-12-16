@@ -1,0 +1,16 @@
+name = Paragraphs pack test
+core = 7.x
+package = Features
+dependencies[] = features
+dependencies[] = paragraphs
+dependencies[] = text
+features[features_api][] = api:2
+features[field_base][] = body
+features[field_base][] = field_paragraphs
+features[field_base][] = field_pp_test_paragraphs
+features[field_instance][] = node-pp_test_landing_page-body
+features[field_instance][] = node-pp_test_landing_page-field_pp_test_paragraphs
+features[field_instance][] = node-type_with_paragraphs-body
+features[field_instance][] = node-type_with_paragraphs-field_paragraphs
+features[node][] = pp_test_landing_page
+mtime = 1418759243
