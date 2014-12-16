@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Install, update and uninstall functions for the paragraphs_pack_node_list module.
+ */
+
+/**
  * Implements hook_install().
  */
 function paragraphs_pack_node_list_install() {

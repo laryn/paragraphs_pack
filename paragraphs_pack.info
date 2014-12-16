@@ -1,7 +1,7 @@
 name = Paragraphs pack
 description = Paragraph bundles.
 core = 7.x
-package = Paragraphs
+package = Paragraphs pack
 dependencies[] = paragraphs
 dependencies[] = entityreference
 files[] = tests/paragraphs_pack.test

@@ -4,6 +4,7 @@
  * @file
  * Paragraphs pack primary module file.
  */
+
 // Field types:
 define('PP_FIELD_TYPE_VIEW_MODE', 'pp_view_mode');
 

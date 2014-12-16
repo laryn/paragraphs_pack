@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Install, update and uninstall functions for the paragraphs_pack_content module.
+ */
+
+/**
  * Implements hook_install().
  */
 function paragraphs_pack_content_install() {

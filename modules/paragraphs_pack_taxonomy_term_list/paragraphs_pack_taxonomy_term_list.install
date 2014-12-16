@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Install, update and uninstall functions for the paragraphs_pack_taxonomy_list module.
+ */
+
+/**
  * Implements hook_install().
  */
 function paragraphs_pack_taxonomy_term_list_install() {
