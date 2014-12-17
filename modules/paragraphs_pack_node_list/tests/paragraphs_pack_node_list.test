@@ -180,18 +180,44 @@ class ParagraphsPackNodeListTestViewModeCase extends ParagraphsPackNodeListTestB
   }
 
   public function setUp() {
-    parent::setUp('paragraphs_pack_test');
+    parent::setUp('paragraphs_pack_test', 'paragraphs_pack_node_list');
+    // Log user in.
+    $web_user = $this->drupalCreateUser(array('bypass node access', 'administer content types', 'administer paragraphs bundles'));
+    $this->drupalLogin($web_user);
   }
 
   /**
    * Test view mode options.
    */
   public function testParagraphsPackNodeListViewModeOptions() {
-//    $css_class = 'test-soft-value';
-//    list ($node, $entity) = $this->createNodeWithParagraph($css_class);
-//    $this->drupalGet('node/' . $node->nid);
-//    $class = $this->xpath('//*[contains(@class, "' . $css_class . '")]');
-//    $this->assertTrue(count($class) == 1, $css_class . ' class found.');
+    // Load the page for adding new Landing page.
+    $new_langing_page_path = 'node/add/pp-test-landing-page';
+    $this->drupalGet($new_langing_page_path);
+
+    // Click 'Add a Paragraph' button.
+    $button_name = 'field_pp_test_paragraphs_add_more_add_more';
+    $button_value = 'Add a Paragraph';
+    $this->drupalPostAJAX(NULL, NULL, array($button_name => $button_value));
+
+    // Get view mode field options.
+
+    $elements = $this->xpath('//input[@name=\'field_pp_test_paragraphs[und][0][pp_view_mode][und]\']|//select[@name=\'field_pp_test_paragraphs[und][0][pp_view_mode][und]\']');
+    $this->assertTrue(!empty($elements), t('View mode options exists.'));
+
+    $options = $this->getAllOptions(reset($elements));
+    $options_machine_names = array();
+    foreach ($options as $option) {
+      $options_machine_names[] = (string) $option->attributes()->value;
+    }
+
+    // Test if all correct view modes are present.
+    $all_view_modes_are_present = TRUE;
+    foreach (paragraphs_pack_get_entity_type_view_modes('node') as $machine_name => $label) {
+      if (!in_array($machine_name, $options_machine_names)) {
+        $all_view_modes_are_present = FALSE;
+      }
+    }
+    $this->assertTrue($all_view_modes_are_present, t('All corect view modes are present.'));
   }
 
 }
