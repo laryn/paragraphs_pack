@@ -267,7 +267,7 @@ class ParagraphsPackTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Helper function for mulitdimensional arrays deep comparison
+   * Helper function for multidimensional arrays deep comparison
    *
    * @param array $array1
    *   First array for comparison.

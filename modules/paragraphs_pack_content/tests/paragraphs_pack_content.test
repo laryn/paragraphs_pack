@@ -46,7 +46,7 @@ class ParagraphsPackContentTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test content/body field and instance existance.
+   * Test content/body field and instance existence.
    */
   public function testParagraphsPackContentFieldBodyExistence() {
     $field = field_info_field(PP_FIELD_BODY);

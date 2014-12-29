@@ -81,12 +81,12 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
     )));
 
     // TODO:
-    // Assing paragraph_item to Basic page bundle.
+    // Assigning paragraph_item to Basic page bundle.
     // Create Basic page node: $this->drupalCreateNode($settings)
     // Load the page for adding new Basic page: $this->drupalGet($path)
     // Select paragraph bundle (probably not necessary, just one paragraph bundle will be available)
     // Click Add Paragraph button: $this->drupalPostAJAX($path, $edit, $triggering_element)
-    // Get viem mode field options: $this->getAllOptions($element)
+    // Get view mode field options: $this->getAllOptions($element)
     // Check the options.
     // Maybe:
     // Create some nodes, Basic page bundles.
@@ -94,7 +94,7 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test items field and instance existance.
+   * Test items field and instance existence.
    */
   public function testParagraphsPackNodeListFieldItemsExistence() {
     $field_name = PP_FIELD_ITEMS . '_node';
@@ -112,7 +112,7 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test view mode field and instance existance.
+   * Test view mode field and instance existence.
    */
   public function testParagraphsPackNodeListFieldViewModeExistence() {
     $field = field_info_field(PP_FIELD_VIEW_MODE);
@@ -191,8 +191,8 @@ class ParagraphsPackNodeListTestViewModeCase extends ParagraphsPackNodeListTestB
    */
   public function testParagraphsPackNodeListViewModeOptions() {
     // Load the page for adding new Landing page.
-    $new_langing_page_path = 'node/add/pp-test-landing-page';
-    $this->drupalGet($new_langing_page_path);
+    $new_landing_page_path = 'node/add/pp-test-landing-page';
+    $this->drupalGet($new_landing_page_path);
 
     // Click 'Add a Paragraph' button.
     $button_name = 'field_pp_test_paragraphs_add_more_add_more';
@@ -217,7 +217,7 @@ class ParagraphsPackNodeListTestViewModeCase extends ParagraphsPackNodeListTestB
         $all_view_modes_are_present = FALSE;
       }
     }
-    $this->assertTrue($all_view_modes_are_present, t('All corect view modes are present.'));
+    $this->assertTrue($all_view_modes_are_present, t('All correct view modes are present.'));
   }
 
 }
