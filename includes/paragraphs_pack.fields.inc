@@ -137,21 +137,24 @@ function paragraphs_pack_get_allowed_view_modes($instance) {
 
   if (!isset($view_modes[$instance['id']])) {
     $entity_type = $instance['settings']['entity_type'];
-
-    $values = array(PP_VALUE_DEFAULT => 'Default');
-    $entity_info = entity_get_info($entity_type);
-
-    // Create key => label array of view modes.
-    if (isset($entity_info['view modes'])) {
-      foreach ($entity_info['view modes'] as $key => $value) {
-        $values[$key] = $value['label'];
-      }
-    }
-
-    $view_modes[$instance['id']] = $values;
+    $view_modes[$instance['id']] = paragraphs_pack_get_entity_type_view_modes($entity_type);
   }
 
   return $view_modes[$instance['id']];
+}
+
+function paragraphs_pack_get_entity_type_view_modes($entity_type) {
+  $view_modes = array(PP_VALUE_DEFAULT => 'Default');
+  $entity_info = entity_get_info($entity_type);
+
+  // Create key => label array of view modes.
+  if (isset($entity_info['view modes'])) {
+    foreach ($entity_info['view modes'] as $key => $value) {
+      $view_modes[$key] = $value['label'];
+    }
+  }
+
+  return $view_modes;
 }
 
 /**

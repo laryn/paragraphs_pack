@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * paragraphs_pack_test.features.field_instance.inc
@@ -86,9 +87,6 @@ function paragraphs_pack_test_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'add_mode' => 'select',
-      'allowed_bundles' => array(
-        'paragraphs_pack_content' => 0,
-      ),
       'default_edit_mode' => 'open',
       'title' => 'Paragraph',
       'title_multiple' => 'Paragraphs',
