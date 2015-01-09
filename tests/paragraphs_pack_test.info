@@ -1,6 +1,7 @@
 name = Paragraphs pack test
 core = 7.x
 package = Features
+hidden = TRUE
 dependencies[] = features
 dependencies[] = paragraphs
 dependencies[] = strongarm
