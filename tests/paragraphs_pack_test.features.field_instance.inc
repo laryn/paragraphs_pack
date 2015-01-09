@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * paragraphs_pack_test.features.field_instance.inc
@@ -11,47 +10,45 @@
 function paragraphs_pack_test_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-pp_test_landing_page-body'
-  $field_instances['node-pp_test_landing_page-body'] = array(
+  // Exported field_instance: 'node-pp_test_landing_page-field_pp_test_body'
+  $field_instances['node-pp_test_landing_page-field_pp_test_body'] = array(
     'bundle' => 'pp_test_landing_page',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'trim_length' => 600,
-        ),
-        'type' => 'text_summary_or_trimmed',
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'body',
+    'field_name' => 'field_pp_test_body',
     'label' => 'Body',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
-      'display_summary' => TRUE,
+      'display_summary' => 0,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
         'rows' => 20,
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => -4,
+      'weight' => 1,
     ),
   );
 
@@ -87,93 +84,6 @@ function paragraphs_pack_test_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'add_mode' => 'select',
-      'default_edit_mode' => 'open',
-      'title' => 'Paragraph',
-      'title_multiple' => 'Paragraphs',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'paragraphs',
-      'settings' => array(),
-      'type' => 'paragraphs_embed',
-      'weight' => -3,
-    ),
-  );
-
-  // Exported field_instance: 'node-type_with_paragraphs-body'
-  $field_instances['node-type_with_paragraphs-body'] = array(
-    'bundle' => 'type_with_paragraphs',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'trim_length' => 600,
-        ),
-        'type' => 'text_summary_or_trimmed',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'body',
-    'label' => 'Body',
-    'required' => FALSE,
-    'settings' => array(
-      'display_summary' => TRUE,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => -4,
-    ),
-  );
-
-  // Exported field_instance: 'node-type_with_paragraphs-field_paragraphs'
-  $field_instances['node-type_with_paragraphs-field_paragraphs'] = array(
-    'bundle' => 'type_with_paragraphs',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'paragraphs',
-        'settings' => array(
-          'view_mode' => 'full',
-        ),
-        'type' => 'paragraphs_view',
-        'weight' => 1,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_paragraphs',
-    'label' => 'Paragraphs',
-    'required' => 0,
-    'settings' => array(
-      'add_mode' => 'select',
       'allowed_bundles' => array(),
       'default_edit_mode' => 'open',
       'title' => 'Paragraph',
@@ -185,7 +95,7 @@ function paragraphs_pack_test_field_default_field_instances() {
       'module' => 'paragraphs',
       'settings' => array(),
       'type' => 'paragraphs_embed',
-      'weight' => -3,
+      'weight' => 2,
     ),
   );
 
