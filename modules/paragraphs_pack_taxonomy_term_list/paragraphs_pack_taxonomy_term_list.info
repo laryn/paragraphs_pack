@@ -3,3 +3,4 @@ description = Installs paragraphs bundle Taxonomy term list.
 core = 7.x
 package = Paragraphs pack
 dependencies[] = paragraphs_pack
+files[] = tests/paragraphs_pack_taxonomy_term_list.test

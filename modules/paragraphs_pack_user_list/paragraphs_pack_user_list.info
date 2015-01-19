@@ -1,0 +1,6 @@
+name = Paragraphs pack User list.
+description = Installs paragraphs bundle User list.
+core = 7.x
+package = Paragraphs pack
+dependencies[] = paragraphs_pack
+files[] = tests/paragraphs_pack_user_list.test

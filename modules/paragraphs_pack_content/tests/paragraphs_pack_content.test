@@ -4,11 +4,12 @@
  * @file
  * Paragraphs pack content module's tests.
  */
+module_load_include('inc', 'paragraphs_pack', 'tests/paragraphs_pack.test_helper');
 
 /**
  * Test case for Paragraphs pack content.
  */
-class ParagraphsPackContentTestCase extends DrupalWebTestCase {
+class ParagraphsPackContentTestCase extends ParagraphsPackWebTestCase {
 
   /**
    * Give display information to the SimpleTest system.
@@ -38,27 +39,15 @@ class ParagraphsPackContentTestCase extends DrupalWebTestCase {
    * Paragraph Content bundle should be created.
    */
   public function testParagraphsPackContentBundle() {
-    $content_bundle_loaded = (paragraphs_bundle_load(PP_BUNDLE_CONTENT) != FALSE);
-
-    $this->assertTrue($content_bundle_loaded, t('Paragraph "@paragraph_bundle" bundle was successfully created.', array(
-      '@paragraph_bundle' => PP_BUNDLE_CONTENT,
-    )));
+    $this->check_bundle_existence(PP_BUNDLE_CONTENT);
   }
 
   /**
-   * Test content/body field and instance existence.
+   * Test fields and instances existence.
    */
-  public function testParagraphsPackContentFieldBodyExistence() {
-    $field = field_info_field(PP_FIELD_BODY);
-    $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
-      '@paragraph_field' => PP_FIELD_BODY,
-    )));
-
-    $instance = field_info_instance(PP_PARAGRAPH_TYPE, PP_FIELD_BODY, PP_BUNDLE_CONTENT);
-    $this->assertTrue(!empty($instance), t('Paragraph "@paragraph_bundle" bundle contains "@paragraph_field" field instance.', array(
-      '@paragraph_bundle' => PP_BUNDLE_CONTENT,
-      '@paragraph_field' => PP_FIELD_BODY,
-    )));
+  public function testParagraphsPackContentFieldsExistence() {
+    $this->check_field_existence(PP_FIELD_TITLE, PP_BUNDLE_CONTENT);
+    $this->check_field_existence(PP_FIELD_BODY, PP_BUNDLE_CONTENT);
   }
 
 }

@@ -5,4 +5,4 @@
  * Paragraphs pack node list module file.
  */
 // Bundles:
-define('PP_BUNDLE_NODE_LIST', 'paragraphs_pack_node_list');
+define('PP_BUNDLE_USER_LIST', 'paragraphs_pack_user_list');

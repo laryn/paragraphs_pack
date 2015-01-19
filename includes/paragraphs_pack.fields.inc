@@ -143,6 +143,14 @@ function paragraphs_pack_get_allowed_view_modes($instance) {
   return $view_modes[$instance['id']];
 }
 
+/**
+ * Get all possible view modes of specified entity type.
+ *
+ * @param string $entity_type
+ *   The specified entity type.
+ * @return array
+ *   An array of all view modes of the specified entity type.
+ */
 function paragraphs_pack_get_entity_type_view_modes($entity_type) {
   $view_modes = array(PP_VALUE_DEFAULT => 'Default');
   $entity_info = entity_get_info($entity_type);

@@ -4,4 +4,6 @@ core = 7.x
 package = Paragraphs pack
 dependencies[] = paragraphs
 dependencies[] = entityreference
+dependencies[] = file
+dependencies[] = media
 files[] = tests/paragraphs_pack.test

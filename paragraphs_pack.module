@@ -4,14 +4,17 @@
  * @file
  * Paragraphs pack primary module file.
  */
-
 // Field types:
 define('PP_FIELD_TYPE_VIEW_MODE', 'pp_view_mode');
 
 // Fields:
+define('PP_FIELD_TITLE', 'pp_title');
 define('PP_FIELD_BODY', 'pp_body');
 define('PP_FIELD_ITEMS', 'pp_items');
 define('PP_FIELD_VIEW_MODE', 'pp_view_mode');
+define('PP_FIELD_FILE', 'pp_file');
+define('PP_FIELD_IMAGE', 'pp_image');
+define('PP_FIELD_EXPAND', 'pp_expand');
 
 // Formatters:
 define('PP_FORMATTER_VIEW_MODE', 'pp_view_mode_formatter');
@@ -36,7 +39,7 @@ require_once dirname(__FILE__) . '/includes/paragraphs_pack.formatters.inc';
  * @param string $machine_name
  *  A machine name of new paragraph item.
  * @param string $name
- *  A human readale name of new paragraph item.
+ *  A human readable name of new paragraph item.
  */
 function paragraphs_pack_create_paragraph($machine_name, $name) {
   $bundle = new stdClass();
@@ -72,13 +75,13 @@ function paragraphs_pack_create_paragraph($machine_name, $name) {
 function paragraphs_pack_preprocess(&$variables, $hook) {
   // Only run with paragraphs_item entity.
   if (!empty($variables['entity_type']) == PP_PARAGRAPH_TYPE) {
-    $entity = $variables['paragraphs_item'];
-    $class = 'paragraphs-item-' . $entity->item_id;
-    switch ($hook) {
-      case "edgy_paragraphs_item":
-      case "entity":
-        $variables['classes_array'][] = drupal_html_class($class);
-        break;
+    if (!empty($variables['paragraphs_item'])) {
+      // Get paragraph entity.
+      $entity = $variables['paragraphs_item'];
+      // Define class name.
+      $class = 'paragraphs-item-' . $entity->item_id;
+      // Add class to classes_array.
+      $variables['classes_array'][] = drupal_html_class($class);
     }
   }
 }

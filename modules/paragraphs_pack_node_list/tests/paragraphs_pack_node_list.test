@@ -4,47 +4,14 @@
  * @file
  * Paragraphs pack content list module's tests.
  */
-
-/**
- * Class ClassyParagraphsTestBase
- *
- * Base test class used for all functional test.
- */
-class ParagraphsPackNodeListTestBase extends DrupalWebTestCase {
-
-  /**
-   * Helper method used to create node with paragraphs.
-   *
-   * @param string $view_mode
-   * @param string $node_type
-   * @return array
-   */
-  public function createNodeWithParagraph($view_mode = 'teaser', $node_type = 'pp_test_landing_page') {
-    $target_type = 'node';
-
-    $node = $this->drupalCreateNode(array('type' => $node_type));
-
-    $field_view_mode = PP_FIELD_VIEW_MODE;
-    $field_items = PP_FIELD_ITEMS . '_' . $target_type;
-
-    $entity = entity_create('paragraphs_item', array('bundle' => PP_BUNDLE_NODE_LIST, 'field_name' => 'field_pp_test_paragraphs'));
-    $entity->{$field_view_mode}[LANGUAGE_NONE][0]['value'] = $view_mode;
-    // Fill entityreference field with content of Basic page.
-    //$entity->{$field_items}[LANGUAGE_NONE][0]['value'] = $this->randomString();
-    $entity->setHostEntity('node', $node);
-    $entity->save();
-
-    return array($node, $entity);
-  }
-
-}
+module_load_include('inc', 'paragraphs_pack', 'tests/paragraphs_pack.test_helper');
 
 /**
  * class ParagraphsPackNodeListTestCase
  *
  * Test case for Paragraphs pack content list.
  */
-class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
+class ParagraphsPackNodeListTestCase extends ParagraphsPackWebTestCase {
 
   /**
    * Give display information to the SimpleTest system.
@@ -74,11 +41,7 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
    * Test Paragraph Content bundle existence.
    */
   public function testParagraphsPackNodeListBundle() {
-    // Test bundle existence.
-    $content_bundle_loaded = (paragraphs_bundle_load(PP_BUNDLE_NODE_LIST) != FALSE);
-    $this->assertTrue($content_bundle_loaded, t('Paragraph "@paragraph_bundle" bundle was successfully created.', array(
-      '@paragraph_bundle' => PP_BUNDLE_NODE_LIST,
-    )));
+    $this->check_bundle_existence(PP_BUNDLE_NODE_LIST);
 
     // TODO:
     // Assigning paragraph_item to Basic page bundle.
@@ -94,72 +57,14 @@ class ParagraphsPackNodeListTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test items field and instance existence.
+   * Test fields and instances existence.
    */
-  public function testParagraphsPackNodeListFieldItemsExistence() {
-    $field_name = PP_FIELD_ITEMS . '_node';
+  public function testParagraphsPackNodeListFieldsExistence() {
+    $field_items_name = PP_FIELD_ITEMS . '_node';
 
-    $field = field_info_field($field_name);
-    $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
-      '@paragraph_field' => $field_name,
-    )));
-
-    $instance = field_info_instance(PP_PARAGRAPH_TYPE, $field_name, PP_BUNDLE_NODE_LIST);
-    $this->assertTrue(!empty($instance), t('Paragraph "@paragraph_bundle" bundle contains "@paragraph_field" field instance.', array(
-      '@paragraph_bundle' => PP_BUNDLE_NODE_LIST,
-      '@paragraph_field' => $field_name,
-    )));
-  }
-
-  /**
-   * Test view mode field and instance existence.
-   */
-  public function testParagraphsPackNodeListFieldViewModeExistence() {
-    $field = field_info_field(PP_FIELD_VIEW_MODE);
-    $this->assertTrue(!empty($field), t('Field "@paragraph_field" exists.', array(
-      '@paragraph_field' => PP_FIELD_VIEW_MODE,
-    )));
-
-    $instance = field_info_instance(PP_PARAGRAPH_TYPE, PP_FIELD_VIEW_MODE, PP_BUNDLE_NODE_LIST);
-    $this->assertTrue(!empty($instance), t('Paragraph "@paragraph_bundle" bundle contains "@paragraph_field" field instance.', array(
-      '@paragraph_bundle' => PP_BUNDLE_NODE_LIST,
-      '@paragraph_field' => PP_FIELD_VIEW_MODE,
-    )));
-  }
-
-}
-
-/**
- * Class ParagraphsPackNodeListTestFeatureCase
- *
- * Ensure that the test features has been installed.
- */
-class ParagraphsPackNodeListTestFeatureCase extends DrupalWebTestCase {
-
-  public static function getInfo() {
-    return array(
-      'name' => 'Test Paragraphs pack testing feature module',
-      'description' => 'Ensure that the Paragraphs pack testing feature installs.',
-      'group' => 'Paragraphs pack',
-    );
-  }
-
-  public function setUp() {
-    parent::setUp('paragraphs_pack_test');
-    // Log user in.
-    $web_user = $this->drupalCreateUser(array('bypass node access', 'administer content types', 'administer paragraphs bundles'));
-    $this->drupalLogin($web_user);
-  }
-
-  /**
-   * Test content type stored in features.
-   */
-  public function testParagraphsPackNodeListNodeType() {
-    $node_types = node_type_get_types();
-    $this->assertTrue(isset($node_types['pp_test_landing_page']), 'Node type landing page is available.');
-    // Go to test content type.
-    $this->drupalGet('node/add/pp-test-landing-page');
-    $this->assertText('Paragraphs', 'Found paragraphs field');
+    $this->check_field_existence(PP_FIELD_TITLE, PP_BUNDLE_NODE_LIST);
+    $this->check_field_existence($field_items_name, PP_BUNDLE_NODE_LIST);
+    $this->check_field_existence(PP_FIELD_VIEW_MODE, PP_BUNDLE_NODE_LIST);
   }
 
 }
@@ -169,12 +74,12 @@ class ParagraphsPackNodeListTestFeatureCase extends DrupalWebTestCase {
  *
  * Ensure that the markup appears.
  */
-class ParagraphsPackNodeListTestViewModeCase extends ParagraphsPackNodeListTestBase {
+class ParagraphsPackNodeListTestViewModeCase extends ParagraphsPackFeatureWebTestCase {
 
   public static function getInfo() {
     return array(
-      'name' => 'Test view mode on node list paragraph',
-      'description' => 'Ensure that the view mode works correctly on node list paragraph.',
+      'name' => 'Test view mode on content list paragraph',
+      'description' => 'Ensure that the view mode works correctly on content list paragraph.',
       'group' => 'Paragraphs pack',
     );
   }
@@ -190,34 +95,7 @@ class ParagraphsPackNodeListTestViewModeCase extends ParagraphsPackNodeListTestB
    * Test view mode options.
    */
   public function testParagraphsPackNodeListViewModeOptions() {
-    // Load the page for adding new Landing page.
-    $new_landing_page_path = 'node/add/pp-test-landing-page';
-    $this->drupalGet($new_landing_page_path);
-
-    // Click 'Add a Paragraph' button.
-    $button_name = 'field_pp_test_paragraphs_add_more_add_more';
-    $button_value = 'Add a Paragraph';
-    $this->drupalPostAJAX(NULL, NULL, array($button_name => $button_value));
-
-    // Get view mode field options.
-
-    $elements = $this->xpath('//input[@name=\'field_pp_test_paragraphs[und][0][pp_view_mode][und]\']|//select[@name=\'field_pp_test_paragraphs[und][0][pp_view_mode][und]\']');
-    $this->assertTrue(!empty($elements), t('View mode options exists.'));
-
-    $options = $this->getAllOptions(reset($elements));
-    $options_machine_names = array();
-    foreach ($options as $option) {
-      $options_machine_names[] = (string) $option->attributes()->value;
-    }
-
-    // Test if all correct view modes are present.
-    $all_view_modes_are_present = TRUE;
-    foreach (paragraphs_pack_get_entity_type_view_modes('node') as $machine_name => $label) {
-      if (!in_array($machine_name, $options_machine_names)) {
-        $all_view_modes_are_present = FALSE;
-      }
-    }
-    $this->assertTrue($all_view_modes_are_present, t('All correct view modes are present.'));
+    $this->check_view_mode_options('node');
   }
 
 }
