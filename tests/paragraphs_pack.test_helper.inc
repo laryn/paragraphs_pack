@@ -8,7 +8,7 @@
 /**
  * Class ParagraphsPackWebTestCase
  *
- * Extends DrupalWebTestCase by field existance check method.
+ * Extends DrupalWebTestCase by field existence check method.
  */
 class ParagraphsPackWebTestCase extends DrupalWebTestCase {
 
@@ -67,7 +67,7 @@ class ParagraphsPackFeatureWebTestCase extends DrupalWebTestCase {
     $this->click_add_paragraph_button();
 
     // Get view mode options.
-    $select_element = $this->check_paragrahs_select_element_existence();
+    $select_element = $this->check_paragraphs_select_element_existence();
     $options = $this->get_options_machine_names($select_element);
 
     // Do the testing.
@@ -97,7 +97,7 @@ class ParagraphsPackFeatureWebTestCase extends DrupalWebTestCase {
    * @return object
    *  Returns the paragraphs select element or FALSE if element wasn't found.
    */
-  function check_paragrahs_select_element_existence() {
+  function check_paragraphs_select_element_existence() {
     $xpath_view_mode_name = '@name=\'field_pp_test_paragraphs[' . LANGUAGE_NONE . '][0][' . PP_FIELD_VIEW_MODE . '][' . LANGUAGE_NONE . ']\'';
     $xpath_view_mode = "//input[$xpath_view_mode_name]|//select[$xpath_view_mode_name]";
 
@@ -105,7 +105,7 @@ class ParagraphsPackFeatureWebTestCase extends DrupalWebTestCase {
     $elements = $this->xpath($xpath_view_mode);
     $this->assertTrue(!empty($elements), t('View mode options exists.'));
 
-    // For non existing paragrahps select element return FALSE
+    // For non existing paragraphs select element return FALSE
     if (empty($elements)) {
       return FALSE;
     }
