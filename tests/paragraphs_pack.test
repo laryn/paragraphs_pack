@@ -140,7 +140,7 @@ class ParagraphsPackTestCase extends DrupalWebTestCase {
     // Test field settings.
     if ($field_info_exists) {
       $this->assertEqual($field_info['field_name'], PP_FIELD_BODY);
-      $this->assertEqual($field_info['type'], 'text_with_summary');
+      $this->assertEqual($field_info['type'], 'text_long');
       $this->assertEqual($field_info['entity_types'], array(PP_PARAGRAPH_TYPE));
     }
   }
@@ -166,8 +166,19 @@ class ParagraphsPackTestCase extends DrupalWebTestCase {
       $this->assertEqual($instance_info['entity_type'], PP_PARAGRAPH_TYPE);
       $this->assertEqual($instance_info['bundle'], $this->paragraph_bundle_name);
       $this->assertEqual($instance_info['label'], $field_label);
-      $this->assertEqual($instance_info['widget']['type'], 'text_textarea_with_summary');
       $this->assertEqual($instance_info['settings']['display_summary'], TRUE);
+
+      // Test widget settings.
+      $widget = array(
+        'module' => 'text',
+        'settings' => array(
+          'rows' => 5,
+        ),
+        'type' => 'text_textarea',
+      );
+
+      $widget_difference = $this->array_diff_assoc_deep($widget, $instance_info['widget']);
+      $this->assertTrue(empty($widget_difference), t('Widget contains all specified settings. Differences (print_r) %differences', array('%differences' => print_r($widget_difference, TRUE))));
 
       // Test display settings.
       $display = array(

@@ -84,7 +84,13 @@ function paragraphs_pack_add_field_body($bundle, $field_label) {
     'entity_type' => PP_PARAGRAPH_TYPE,
     'bundle' => $bundle,
     'label' => $field_label,
-    'widget' => array('type' => 'text_textarea_with_summary'),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+    ),
     'settings' => array('display_summary' => TRUE),
     'display' => array(
       'default' => array(
@@ -116,7 +122,7 @@ function paragraphs_pack_add_field_body($bundle, $field_label) {
 function paragraphs_pack_get_field_body() {
   $field = _paragraphs_pack_get_field(array(
     'field_name' => PP_FIELD_BODY,
-    'type' => 'text_with_summary',
+    'type' => 'text_long',
     'entity_types' => array(PP_PARAGRAPH_TYPE),
   ));
 
