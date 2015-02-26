@@ -11,7 +11,7 @@
 function paragraphs_pack_juicebox_install() {
   paragraphs_pack_create_paragraph(PP_BUNDLE_JUICEBOX, 'Juicebox Gallery');
   paragraphs_pack_add_field_title(PP_BUNDLE_JUICEBOX, 'Title');
-  paragraphs_pack_add_field_image(PP_BUNDLE_JUICEBOX, 'juicebox-image');
+  paragraphs_pack_add_field_image(PP_BUNDLE_JUICEBOX, 'Juicebox Image');
   // Configure Juicebox on default view mode.
   $instance = field_info_instance(PP_PARAGRAPH_TYPE, PP_FIELD_IMAGE, PP_BUNDLE_JUICEBOX);
   $instance['display']['default'] = paragraphs_pack_juicebox_widget_configuration();
