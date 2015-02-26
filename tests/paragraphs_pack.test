@@ -397,7 +397,6 @@ class ParagraphsPackTestCase extends DrupalWebTestCase {
       $this->assertEqual($instance_info['entity_type'], PP_PARAGRAPH_TYPE);
       $this->assertEqual($instance_info['bundle'], $this->paragraph_bundle_name);
       $this->assertEqual($instance_info['label'], $field_label);
-      $this->assertEqual($instance_info['widget']['type'], 'media_generic');
 
       $settings_difference = $this->array_diff_assoc_deep($settings, $instance_info['settings']);
       $this->assertTrue(empty($settings_difference), t('Field instance contains all specified settings. Differences (print_r) %differences', array('%differences' => print_r($settings_difference, TRUE))));

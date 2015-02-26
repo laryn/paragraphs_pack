@@ -68,6 +68,11 @@ class ParagraphsPackFeatureWebTestCase extends DrupalWebTestCase {
 
     // Get view mode options.
     $select_element = $this->check_paragraphs_select_element_existence();
+    if ($select_element == FALSE) {
+      // There's nothing more to test if the element doesn't exist.
+      return;
+    }
+
     $options = $this->get_options_machine_names($select_element);
 
     // Do the testing.
@@ -87,8 +92,7 @@ class ParagraphsPackFeatureWebTestCase extends DrupalWebTestCase {
    */
   function click_add_paragraph_button() {
     $button_name = 'field_pp_test_paragraphs_add_more_add_more';
-    $button_value = 'Add a Paragraph';
-    $this->drupalPostAJAX(NULL, NULL, array($button_name => $button_value));
+    $this->drupalPostAJAX(NULL, array(), $button_name);
   }
 
   /**

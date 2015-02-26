@@ -293,10 +293,6 @@ function paragraphs_pack_add_field_file($bundle, $field_label, $settings) {
     'bundle' => $bundle,
     'label' => $field_label,
     'required' => 1,
-    'widget' => array(
-      'type' => 'media_generic',
-      'module' => 'media',
-    ),
     'settings' => $settings,
   ));
 
@@ -313,7 +309,7 @@ function paragraphs_pack_add_field_file($bundle, $field_label, $settings) {
  * @return array
  *   An array containing field values.
  */
-function paragraphs_pack_get_field_file($uri_scheme = 'public') {
+function paragraphs_pack_get_field_file($uri_scheme = '') {
   $field = _paragraphs_pack_get_field(array(
     'field_name' => PP_FIELD_FILE,
     'type' => 'file',
@@ -322,9 +318,13 @@ function paragraphs_pack_get_field_file($uri_scheme = 'public') {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
-      'uri_scheme' => $uri_scheme,
+      'uri_scheme' => variable_get('file_default_scheme', 'public'),
     ),
   ));
+
+  if (!empty($uri_scheme)) {
+    $field['settings']['uri_scheme'] = $uri_scheme;
+  }
 
   return $field;
 }
@@ -363,10 +363,6 @@ function paragraphs_pack_add_field_image($bundle, $field_label, $settings = arra
     'bundle' => $bundle,
     'label' => $field_label,
     'required' => TRUE,
-    'widget' => array(
-      'type' => 'media_generic',
-      'module' => 'media',
-    ),
     'settings' => $settings,
   ));
 
@@ -378,16 +374,25 @@ function paragraphs_pack_add_field_image($bundle, $field_label, $settings = arra
  *
  * This field can be used only on paragraph entity type.
  *
+ * @param string $uri_scheme
+ *   A name of a scheme (private/public).
  * @return array
  *   An array containing field values.
  */
-function paragraphs_pack_get_field_image() {
+function paragraphs_pack_get_field_image($uri_scheme = '') {
   $field = _paragraphs_pack_get_field(array(
     'field_name' => PP_FIELD_IMAGE,
     'type' => 'image',
     'entity_types' => array(PP_PARAGRAPH_TYPE),
     'cardinality' => FIELD_CARDINALITY_UNLIMITED,
+    'settings' => array(
+      'uri_scheme' => variable_get('file_default_scheme', 'public'),
+    ),
   ));
+
+  if (!empty($uri_scheme)) {
+    $field['settings']['uri_scheme'] = $uri_scheme;
+  }
 
   return $field;
 }
