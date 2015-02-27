@@ -3,4 +3,6 @@ description = Installs paragraphs bundle Content list.
 core = 7.x
 package = Paragraphs pack
 dependencies[] = paragraphs_pack
+dependencies[] = entityreference
+dependencies[] = text
 files[] = tests/paragraphs_pack_node_list.test

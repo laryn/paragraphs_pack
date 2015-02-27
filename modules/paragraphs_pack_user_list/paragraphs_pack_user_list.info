@@ -3,4 +3,6 @@ description = Installs paragraphs bundle User list.
 core = 7.x
 package = Paragraphs pack
 dependencies[] = paragraphs_pack
+dependencies[] = entityreference
+dependencies[] = text
 files[] = tests/paragraphs_pack_user_list.test
