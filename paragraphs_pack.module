@@ -68,20 +68,3 @@ function paragraphs_pack_create_paragraph($machine_name, $name) {
     watchdog('paragraphs_pack', 'The paragraph bundle %name couldn\'t been saved.', $t_args, WATCHDOG_WARNING, l(t('view'), 'admin/structure/paragraphs'));
   }
 }
-
-/**
- * Implements hook_preprocess().
- */
-function paragraphs_pack_preprocess(&$variables, $hook) {
-  // Only run with paragraphs_item entity.
-  if (!empty($variables['entity_type']) == PP_PARAGRAPH_TYPE) {
-    if (!empty($variables['paragraphs_item'])) {
-      // Get paragraph entity.
-      $entity = $variables['paragraphs_item'];
-      // Define class name.
-      $class = 'paragraphs-item-' . $entity->item_id;
-      // Add class to classes_array.
-      $variables['classes_array'][] = drupal_html_class($class);
-    }
-  }
-}
